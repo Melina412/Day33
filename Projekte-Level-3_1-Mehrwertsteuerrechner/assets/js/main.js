@@ -1,6 +1,6 @@
 function berechnen() {
   let betrag = document.getElementById("betragInput").value;
-  console.log({ betrag });
+  //   console.log({ betrag });
 
   //   Auwahl netto/brutto
   function steuer() {
@@ -8,10 +8,12 @@ function berechnen() {
       return "netto";
     } else if (brutto.checked) {
       return "brutto";
+    } else {
+      return "bitte Steuerart auswählen";
     }
   }
   const steuerAuswahl = steuer();
-  console.log(steuerAuswahl);
+  //   console.log(steuerAuswahl);
 
   //   Auwahl 19/7
   function steuersatz() {
@@ -19,41 +21,76 @@ function berechnen() {
       return "19%";
     } else if (satz7.checked) {
       return "7%";
+    } else {
+      return "bitte Steuersatz auswählen";
     }
   }
   const steuersatzAuswahl = steuersatz();
-  console.log(steuersatzAuswahl);
+  //   console.log(steuersatzAuswahl);
 
   let patternBetrag = document
     .getElementById("betragInput")
     .getAttribute("pattern");
-  console.log(patternBetrag);
+  //   console.log(patternBetrag);
 
-  if (!isNaN(betrag)) {
+  let outputSteuer = document.getElementById("outputSteuer");
+  let outputBetrag = document.getElementById("outputBetrag");
+
+  if (!isNaN(betrag) && betrag > 0) {
     if (steuerAuswahl === "netto") {
+      document.getElementById("inputLabel").innerHTML =
+        "Nettobetrag (Preis ohne Mehrwersteuer) in Euro<span>*</span>";
+      document.getElementById("outputArt").innerHTML =
+        "Bruttobetrag (Endpreis)";
       if (steuersatzAuswahl === "19%") {
-        console.log("mehrwertsteuerbetrag", betrag * 0.19);
-        console.log("bruttobetrag", betrag * 1.19);
+        let resultMwSt = betrag * 0.19;
+        let resultBrutto = betrag * 1.19;
+        //
+        // let result = [resultMwSt, resultBrutto];
+        // console.log(result[0].toFixed(2));
+        // console.log(result[1].toFixed(2));
+        //
+        // return [resultMwSt, resultBrutto];
+        //
+        outputSteuer.innerHTML = resultMwSt.toFixed(2);
+        outputBetrag.innerHTML = resultBrutto.toFixed(2);
       } else if (steuersatzAuswahl === "7%") {
-        console.log("mehrwertsteuerbetrag", betrag * 0.07);
-        console.log("bruttobetrag", betrag * 1.07);
-      } else {
-        console.log("bitte Steuersatz auswählen");
+        let resultMwSt = betrag * 0.07;
+        let resultBrutto = betrag * 1.07;
+        // let result = [resultMwSt, resultBrutto];
+        // console.log(result);
+        outputSteuer.innerHTML = resultMwSt.toFixed(2);
+        outputBetrag.innerHTML = resultBrutto.toFixed(2);
       }
     } else if (steuerAuswahl === "brutto") {
+      document.getElementById("inputLabel").innerHTML =
+        "Bruttobetrag (Preis inklusive Mehrwersteuer) in Euro<span>*</span>";
+      document.getElementById("outputArt").innerHTML = "Nettobetrag";
       if (steuersatzAuswahl === "19%") {
-        console.log("mehrwertsteuerbetrag", betrag * 0.19);
-        console.log("bruttobetrag", betrag * 0.81);
+        let resultMwSt = betrag * 0.19;
+        let resultNetto = betrag * 0.81;
+        // let result = [resultMwSt, resultNetto];
+        // console.log(result);
+        outputSteuer.innerHTML = resultMwSt.toFixed(2);
+        outputBetrag.innerHTML = resultNetto.toFixed(2);
+        //
       } else if (steuersatzAuswahl === "7%") {
-        console.log("mehrwertsteuerbetrag", betrag * 0.07);
-        console.log("nettobetrag", betrag * 0.93);
-      } else {
-        console.log("bitte Steuersatz auswählen");
+        let resultMwSt = betrag * 0.07;
+        let resultNetto = betrag * 0.93;
+        // let result = [resultMwSt, resultNetto];
+        // console.log(result);
+        outputSteuer.innerHTML = resultMwSt.toFixed(2);
+        outputBetrag.innerHTML = resultNetto.toFixed(2);
       }
-    } else {
-      console.log("bitte korrekten Betrag eingeben");
     }
+  } else {
+    console.log("bitte korrekten Betrag eingeben");
   }
 }
+
+// berechnen();
+// const result = berechnen();
+// console.log(result);
+// console.log(result.length);
 
 // && RegExp(patternBetrag).test(betragInput.value)
