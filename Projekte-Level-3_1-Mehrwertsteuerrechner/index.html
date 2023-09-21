@@ -13,12 +13,12 @@
         <form>
           <div>
             <h3>Was soll berechnet werden?</h3>
-            <input type="radio" name="steuer" id="nettoBrutto" />
-            <label for="nettoBrutto"
+            <input type="radio" name="steuer" id="netto" />
+            <label for="netto"
               >Mehrwertsteuer aufschlagen (Netto zu Brutto)</label
             >
-            <input type="radio" name="steuer" id="bruttoNetto" />
-            <label for="nettoBrutto"
+            <input type="radio" name="steuer" id="brutto" />
+            <label for="brutto"
               >Mehrwertsteuer abziehen (Brutto zu Netto)</label
             >
           </div>
@@ -33,15 +33,16 @@
           <div>
             <!-- ! ----- Eingabe Bruttobetrag/Nettobetrag -->
             <label for="betragInput" id="inputLabel"></label>
-            <input type="number" id="betragInput" required />
+            <input
+              type="number"
+              step="0.01"
+              pattern="^\d+(\.\d{0,2})?$"
+              id="betragInput"
+              required
+            />
           </div>
           <div>
-            <input
-              type="button"
-              id="berechnen"
-              value="Berechnen"
-              onclick="Berechnen()"
-            />
+            <input type="button" value="Berechnen" onclick="berechnen()" />
           </div>
         </form>
       </section>
