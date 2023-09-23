@@ -10,29 +10,56 @@
     <h1>Mehrwertsteuer-Rechner</h1>
     <main>
       <section>
-        <form>
+        <form onsubmit="return false">
           <div>
+            <!--  Auswahl Steuer: Netto oder Brutto -->
             <h3>Was soll berechnet werden?</h3>
-            <input type="radio" name="steuer" id="netto" />
+            <input
+              type="radio"
+              name="steuer"
+              id="netto"
+              value="netto"
+              checked
+              onclick="steuerText()"
+            />
             <label for="netto"
               >Mehrwertsteuer aufschlagen (Netto zu Brutto)</label
-            >
-            <input type="radio" name="steuer" id="brutto" />
+            ><br />
+            <input
+              type="radio"
+              name="steuer"
+              id="brutto"
+              value="brutto"
+              onclick="steuerText()"
+            />
             <label for="brutto"
               >Mehrwertsteuer abziehen (Brutto zu Netto)</label
             >
           </div>
 
           <div>
+            <!--  Auswahl Steuersatz: 19% oder 7% -->
             <h3>Mehrwertsteuersatz</h3>
-            <input type="radio" name="steuersatz" id="satz19" />
+            <input
+              type="radio"
+              name="steuersatz"
+              id="satz19"
+              value="0.19"
+              checked
+            />
             <label for="satz19">19 %</label>
-            <input type="radio" name="steuersatz" id="satz7" />
+
+            <input type="radio" name="steuersatz" id="satz7" value="0.07" />
             <label for="satz7">7 %</label>
           </div>
+
           <div>
-            <!-- ! ----- Eingabe Bruttobetrag/Nettobetrag -->
-            <label for="betragInput" id="inputLabel"></label>
+            <!-- Output "Bruttobetrag/Nettobetrag" -->
+            <label for="betragInput" id="inputLabel">
+              >Nettobetrag (Preis ohne Mehrwersteuer) in Euro<span
+                >*</span
+              ></label
+            ><br />
             <input
               type="number"
               step="0.01"
@@ -42,7 +69,7 @@
             />
           </div>
           <div>
-            <input type="button" value="Berechnen" onclick="berechnen()" />
+            <input type="submit" value="Berechnen" onclick="berechnen()" />
           </div>
         </form>
       </section>
@@ -51,14 +78,15 @@
         <h3>Ergebnis</h3>
 
         <div>
+          <!--  Output MwSt -->
           <h3>Mehrwertsteuerbetrag</h3>
           <p>€</p>
           <p id="outputSteuer"></p>
         </div>
 
         <div>
-          <!-- ! ----- Bruttobetrag/Nettobetrag ----- -->
-          <h3 id="outputArt"></h3>
+          <!--  Output Betrag -->
+          <h3 id="outputArt">Bruttobetrag (Endpreis)</h3>
           <p>€</p>
           <p id="outputBetrag"></p>
         </div>

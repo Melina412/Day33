@@ -1,96 +1,73 @@
-function berechnen() {
-  let betrag = document.getElementById("betragInput").value;
-  //   console.log({ betrag });
+// * Text für Betrag inputLabel
+function steuerText() {
+  let steuer = document.querySelector('input[name="steuer"]:checked');
+  // let steuer_value = steuer.value;
+  let input_label = document.getElementById("inputLabel");
+  let output_art = document.getElementById("outputArt");
 
-  //   Auwahl netto/brutto
-  function steuer() {
-    if (netto.checked) {
-      return "netto";
-    } else if (brutto.checked) {
-      return "brutto";
-    } else {
-      return "bitte Steuerart auswählen";
-    }
-  }
-  const steuerAuswahl = steuer();
-  //   console.log(steuerAuswahl);
+  // if (steuer_value === "netto") { //  html value="netto" // - STRING
+  if (steuer === netto) {
+    //  html id netto // - OBJECT
+    input_label.innerHTML = `Nettobetrag (Preis ohne Mehrwersteuer) in Euro<span>*</span>`;
+    output_art.innerHTML = "Bruttobetrag (Endpreis)";
 
-  //   Auwahl 19/7
-  function steuersatz() {
-    if (satz19.checked) {
-      return "19%";
-    } else if (satz7.checked) {
-      return "7%";
-    } else {
-      return "bitte Steuersatz auswählen";
-    }
-  }
-  const steuersatzAuswahl = steuersatz();
-  //   console.log(steuersatzAuswahl);
+    return "netto"; // nur als test
+    //
+    // } else if (steuer_value === "brutto") { //  html value="brutto" // - STRING
+  } else if (steuer === brutto) {
+    //  html id brutto // - OBJECT
+    input_label.innerHTML =
+      "Bruttobetrag (Preis inklusive Mehrwersteuer) in Euro<span>*</span>";
+    output_art.innerHTML = "Nettobetrag";
 
-  let patternBetrag = document
-    .getElementById("betragInput")
-    .getAttribute("pattern");
-  //   console.log(patternBetrag);
-
-  let outputSteuer = document.getElementById("outputSteuer");
-  let outputBetrag = document.getElementById("outputBetrag");
-
-  if (!isNaN(betrag) && betrag > 0) {
-    if (steuerAuswahl === "netto") {
-      document.getElementById("inputLabel").innerHTML =
-        "Nettobetrag (Preis ohne Mehrwersteuer) in Euro<span>*</span>";
-      document.getElementById("outputArt").innerHTML =
-        "Bruttobetrag (Endpreis)";
-      if (steuersatzAuswahl === "19%") {
-        let resultMwSt = betrag * 0.19;
-        let resultBrutto = betrag * 1.19;
-        //
-        // let result = [resultMwSt, resultBrutto];
-        // console.log(result[0].toFixed(2));
-        // console.log(result[1].toFixed(2));
-        //
-        // return [resultMwSt, resultBrutto];
-        //
-        outputSteuer.innerHTML = resultMwSt.toFixed(2);
-        outputBetrag.innerHTML = resultBrutto.toFixed(2);
-      } else if (steuersatzAuswahl === "7%") {
-        let resultMwSt = betrag * 0.07;
-        let resultBrutto = betrag * 1.07;
-        // let result = [resultMwSt, resultBrutto];
-        // console.log(result);
-        outputSteuer.innerHTML = resultMwSt.toFixed(2);
-        outputBetrag.innerHTML = resultBrutto.toFixed(2);
-      }
-    } else if (steuerAuswahl === "brutto") {
-      document.getElementById("inputLabel").innerHTML =
-        "Bruttobetrag (Preis inklusive Mehrwersteuer) in Euro<span>*</span>";
-      document.getElementById("outputArt").innerHTML = "Nettobetrag";
-      if (steuersatzAuswahl === "19%") {
-        let resultMwSt = betrag * 0.19;
-        let resultNetto = betrag * 0.81;
-        // let result = [resultMwSt, resultNetto];
-        // console.log(result);
-        outputSteuer.innerHTML = resultMwSt.toFixed(2);
-        outputBetrag.innerHTML = resultNetto.toFixed(2);
-        //
-      } else if (steuersatzAuswahl === "7%") {
-        let resultMwSt = betrag * 0.07;
-        let resultNetto = betrag * 0.93;
-        // let result = [resultMwSt, resultNetto];
-        // console.log(result);
-        outputSteuer.innerHTML = resultMwSt.toFixed(2);
-        outputBetrag.innerHTML = resultNetto.toFixed(2);
-      }
-    }
+    return "brutto"; // nur als test
+    //
   } else {
-    console.log("bitte korrekten Betrag eingeben");
+    return "bitte Steuerart auswählen"; // nur als test
   }
 }
+steuerText();
 
-// berechnen();
-// const result = berechnen();
-// console.log(result);
-// console.log(result.length);
+// * Beim klick auf Submit-Button
+function berechnen() {
+  // * Werte lesen
+  let betrag = Number(document.getElementById("betragInput").value);
+  let steuer = document.querySelector('input[name="steuer"]:checked');
+  let steuer_value = steuer.value;
+  let steuersatz = document.querySelector('input[name="steuersatz"]:checked');
+  let steuersatz_value = Number(steuersatz.value);
 
-// && RegExp(patternBetrag).test(betragInput.value)
+  // * Entscheidung Addition/Subtraktion der Steuer
+  let operation = "";
+  if (steuer === netto) {
+    operation = 1 + steuersatz_value;
+  } else if (steuer === brutto) {
+    operation = 1 - steuersatz_value;
+  }
+  // * Berechnung
+  let result_steuer = betrag * steuersatz_value;
+  let result_betrag = betrag * operation;
+
+  //  * Output
+  let output_steuer = document.getElementById("outputSteuer");
+  let output_betrag = document.getElementById("outputBetrag");
+
+  output_steuer.innerHTML = result_steuer.toFixed(2);
+  output_betrag.innerHTML = result_betrag.toFixed(2);
+
+  let return_value_steuertext = steuerText(); // nur als test
+  console.log({ return_value_steuertext });
+}
+
+// - steuerText(): die variablen steuer bzw. steuer_value müssen innerhalb der function
+// - definiert sein, weil der wert sonst nur einmal beim laden der seite gesetzt und beim
+// - aufrufen dernfunction durch klick auf die radio buttons nicht aktualisiert wird
+//
+// - (steuer_value === "netto")
+// - steuer_value: im html zugewiesener wert des value attributs -> STRING
+//
+// - (steuer === netto)
+// - steuer:  welcher radio button mit name attribut 'steuer' ist ausgewählt
+// - netto: id des ausgewählten radio buttons -> OBJECT
+//
+// todo betrag eingabe pattern check & fehlermeldung
