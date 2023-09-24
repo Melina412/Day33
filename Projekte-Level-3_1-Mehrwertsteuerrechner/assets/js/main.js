@@ -40,6 +40,7 @@ outputReset();
 
 // * Beim klick auf Submit-Button
 function berechnen() {
+  //
   // * Werte lesen
   let betrag = Number(document.getElementById("betragInput").value);
   let steuer = document.querySelector('input[name="steuer"]:checked');
