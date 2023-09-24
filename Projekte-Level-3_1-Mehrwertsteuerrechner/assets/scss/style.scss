@@ -57,13 +57,28 @@ main {
     form {
       div:nth-child(3) {
         span {
-          color: red;
+          color: crimson;
         }
-        input {
-          width: 12rem;
-          height: 2.8rem;
-          border-radius: 5px;
-          margin: 1rem 0;
+
+        div {
+          display: flex;
+          align-items: center;
+          gap: 1rem;
+          margin: 0;
+          height: 6rem;
+          padding-left: 0;
+
+          input {
+            width: 12rem;
+            height: 2.8rem;
+            border-radius: 5px;
+          }
+
+          p {
+            font-size: 1.2rem;
+            color: crimson;
+            width: 25rem;
+          }
         }
       }
       .button {

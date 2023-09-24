@@ -28,14 +28,27 @@ function steuerText() {
 }
 steuerText();
 
+// * Output bei veränderter Auswahl zurücksetzen
+let output_steuer = document.getElementById("outputSteuer");
+let output_betrag = document.getElementById("outputBetrag");
+
+function outputReset() {
+  output_steuer.innerHTML = "";
+  output_betrag.innerHTML = "";
+}
+outputReset();
+
 // * Beim klick auf Submit-Button
 function berechnen() {
   // * Werte lesen
   let betrag = Number(document.getElementById("betragInput").value);
   let steuer = document.querySelector('input[name="steuer"]:checked');
-  let steuer_value = steuer.value;
   let steuersatz = document.querySelector('input[name="steuersatz"]:checked');
   let steuersatz_value = Number(steuersatz.value);
+  let betrag_pattern = document
+    .getElementById("betragInput")
+    .getAttribute("pattern");
+  let invalid = document.getElementById("invalidInput");
 
   // * Entscheidung Addition/Subtraktion der Steuer
   let operation = "";
@@ -44,16 +57,20 @@ function berechnen() {
   } else if (steuer === brutto) {
     operation = 1 - steuersatz_value;
   }
+
   // * Berechnung
   let result_steuer = betrag * steuersatz_value;
   let result_betrag = betrag * operation;
 
   //  * Output
-  let output_steuer = document.getElementById("outputSteuer");
-  let output_betrag = document.getElementById("outputBetrag");
-
-  output_steuer.innerHTML = result_steuer.toFixed(2);
-  output_betrag.innerHTML = result_betrag.toFixed(2);
+  if (RegExp(betrag_pattern).test(betragInput.value)) {
+    output_steuer.innerHTML = result_steuer.toFixed(2);
+    output_betrag.innerHTML = result_betrag.toFixed(2);
+    invalid.innerHTML = "";
+  } else {
+    invalid.innerHTML =
+      "🛑 Ungültiges Zahlenformat! Bitte geben Sie eine Zahl mit max. 2 Dezimalstellen ein.";
+  }
 
   let return_value_steuertext = steuerText(); // nur als test
   console.log({ return_value_steuertext });
@@ -69,5 +86,3 @@ function berechnen() {
 // - (steuer === netto)
 // - steuer:  welcher radio button mit name attribut 'steuer' ist ausgewählt
 // - netto: id des ausgewählten radio buttons -> OBJECT
-//
-// todo betrag eingabe pattern check & fehlermeldung

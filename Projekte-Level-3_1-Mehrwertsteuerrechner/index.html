@@ -21,7 +21,7 @@
                 id="netto"
                 value="netto"
                 checked
-                onclick="steuerText()"
+                onclick="steuerText(), outputReset()"
               />
               <label for="netto"
                 >Mehrwertsteuer aufschlagen (Netto zu Brutto)</label
@@ -31,7 +31,7 @@
                 name="steuer"
                 id="brutto"
                 value="brutto"
-                onclick="steuerText()"
+                onclick="steuerText(), outputReset()"
               />
               <label for="brutto"
                 >Mehrwertsteuer abziehen (Brutto zu Netto)</label
@@ -47,28 +47,39 @@
                 id="satz19"
                 value="0.19"
                 checked
+                onclick="outputReset()"
               />
               <label for="satz19">19 %</label><br />
 
-              <input type="radio" name="steuersatz" id="satz7" value="0.07" />
+              <input
+                type="radio"
+                name="steuersatz"
+                id="satz7"
+                value="0.07"
+                onclick="outputReset()"
+              />
               <label for="satz7">7 %</label>
             </div>
 
             <div>
-              <!-- Output "Bruttobetrag/Nettobetrag" -->
+              <!-- Input Label "Bruttobetrag/Nettobetrag" -->
               <label for="betragInput" id="inputLabel">
                 >Nettobetrag (Preis ohne Mehrwersteuer) in Euro<span
                   >*</span
                 ></label
               ><br />
-              <input
-                type="number"
-                step="0.01"
-                pattern="^\d+(\.\d{0,2})?$"
-                id="betragInput"
-                required
-              />
+              <div>
+                <input
+                  type="number"
+                  step="0.01"
+                  pattern="^\d+(\.\d{0,2})?$"
+                  id="betragInput"
+                  required
+                />
+                <p id="invalidInput"></p>
+              </div>
             </div>
+            <!-- Submit Button -->
             <div class="button">
               <input type="submit" value="Berechnen" onclick="berechnen()" />
             </div>
