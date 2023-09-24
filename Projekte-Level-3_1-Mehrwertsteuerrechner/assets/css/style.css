@@ -1,0 +1,85 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 62.5%;
+}
+
+.container {
+  width: 54rem;
+  margin: 10rem;
+}
+
+h1 {
+  font-size: 4.4rem;
+  text-align: center;
+}
+
+h3 {
+  font-size: 2rem;
+}
+
+label,
+p {
+  font-size: 1.8rem;
+}
+
+main {
+  border: 2px solid #000;
+  border-radius: 2%;
+  background-color: #efefef;
+}
+main div {
+  background-color: #e5e5e5;
+  margin: 1rem;
+  height: 10rem;
+  border-radius: 5px;
+  padding: 1.5rem;
+}
+main div h3 {
+  margin-bottom: 1rem;
+}
+main .input {
+  border-bottom: 2px solid #000;
+  padding-bottom: 1rem;
+}
+main .input form div:nth-child(3) span {
+  color: red;
+}
+main .input form div:nth-child(3) input {
+  width: 12rem;
+  height: 2.8rem;
+  border-radius: 5px;
+  margin: 1rem 0;
+}
+main .input form .button {
+  height: 4rem;
+  padding: 0;
+}
+main .input form .button input {
+  width: 100%;
+  height: 100%;
+  background-color: rgb(20, 32, 250);
+  font-size: 2.4rem;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+main .output {
+  padding-top: 1rem;
+}
+main .output .output-headline {
+  color: rgb(20, 32, 250);
+  margin-left: 1rem;
+}
+main .output div article {
+  display: flex;
+  gap: 0.5rem;
+}
+
+/*# sourceMappingURL=style.css.map */
